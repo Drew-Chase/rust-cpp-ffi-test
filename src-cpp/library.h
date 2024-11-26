@@ -1,10 +1,6 @@
-﻿#ifndef SRC_CPP_LIBRARY_H
-#define SRC_CPP_LIBRARY_H
-
+﻿#pragma once
 
 extern "C"
 {
 void hello();
 }
-
-#endif //SRC_CPP_LIBRARY_H
