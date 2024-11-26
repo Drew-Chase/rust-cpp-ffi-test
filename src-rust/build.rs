@@ -9,7 +9,11 @@ fn main() {
         .build();
 
     // The path to the actual directory containing the compiled library
-    let out_path = dst.join("build/Debug");
+    let out_path = if cfg!(debug_assertions) {
+        dst.join("build/Debug")
+    } else {
+        dst.join("build/Release")
+    };
 
     println!("Path to the compiled library: {}", out_path.display());
 
@@ -20,16 +24,16 @@ fn main() {
     println!("cargo:rustc-link-lib=static=libsrc_cpp-Windows-AMD64");
 
     // Link the C++ standard library
-//    let target = env::var("TARGET").unwrap();
-//    if target.contains("msvc") {
-//        // Windows Microsoft Visual C/C++ Compiler (MSVC)
-//        println!("cargo:rustc-link-lib=dylib=msvcrt");
-//    } else if target.contains("gnu") {
-//        // Unix/Linux GNU C/C++ Compiler (GCC)
-//        println!("cargo:rustc-link-lib=dylib=stdc++");
-//    } else if target.contains("apple") {
-//        // Darwin/MacOS C/C++ Compiler
-//        // This uses XCode's CLANG Compiler
-//        println!("cargo:rustc-link-lib=dylib=c++");
-//    }
+    let target = env::var("TARGET").unwrap();
+    if target.contains("msvc") {
+        // Windows Microsoft Visual C/C++ Compiler (MSVC)
+        println!("cargo:rustc-link-lib=dylib=msvcrt");
+    } else if target.contains("gnu") {
+        // Unix/Linux GNU C/C++ Compiler (GCC)
+        println!("cargo:rustc-link-lib=dylib=stdc++");
+    } else if target.contains("apple") {
+        // Darwin/MacOS C/C++ Compiler
+        // This uses XCode's CLANG Compiler
+        println!("cargo:rustc-link-lib=dylib=c++");
+    }
 }
