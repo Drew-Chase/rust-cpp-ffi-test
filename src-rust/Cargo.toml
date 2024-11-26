@@ -4,4 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-libc = { version = "0.2.165" }
+
+[build-dependencies]
+cmake = { version = "0.1.52" }
+
+[build]
+build = "build.rs"
